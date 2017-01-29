@@ -1,6 +1,9 @@
 var webpack = require('webpack');
 
+var path = require('path');
+var glob = require('glob');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var PurifyCSSPlugin = require('purifycss-webpack');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
@@ -11,6 +14,10 @@ module.exports = {
   },
   plugins: [
     new ExtractTextPlugin('[name].css', {allChunks: true}),
+    new PurifyCSSPlugin({
+      // Give paths to parse for rules. These should be absolute!
+      paths: glob.sync(path.join(__dirname, 'index.html')),
+    }),
     new CopyWebpackPlugin([{ from: 'index.html' }])
   ],
   module: {
