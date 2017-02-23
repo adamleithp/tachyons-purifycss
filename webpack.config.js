@@ -16,7 +16,9 @@ module.exports = {
     new ExtractTextPlugin('[name].css', {allChunks: true}),
     new PurifyCSSPlugin({
       // Give paths to parse for rules. These should be absolute!
-      paths: glob.sync(path.join(__dirname, 'index.html')),
+      paths: {
+        app: glob.sync(path.join(__dirname, 'index.html'))
+      },
     }),
     new CopyWebpackPlugin([{ from: 'index.html' }])
   ],
